@@ -23,7 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("SUD Alpha 0.0.0.1");
+        primaryStage.setTitle("SUD Alpha 0.0.0.3");
         Group root = new Group();
         Scene theScene = new Scene(root);
         primaryStage.setScene(theScene);
@@ -69,6 +69,27 @@ public class Main extends Application {
             if(input.get(i).equals("W")) {
                 player.moveUp();
                 //remove W from list
+                input.remove(i);
+                i--;
+            }
+            //if the input is equal to S
+            else if(input.get(i).equals("S")) {
+                player.moveDown();
+                //remove S from list
+                input.remove(i);
+                i--;
+            }
+            //if the input is equal to A
+            else if(input.get(i).equals("A")) {
+                player.moveLeft();
+                //remove A from list
+                input.remove(i);
+                i--;
+            }
+            //if the input is equal to D
+            else if(input.get(i).equals("D")) {
+                player.moveRight();
+                //remove D from list
                 input.remove(i);
                 i--;
             }

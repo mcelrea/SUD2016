@@ -25,4 +25,16 @@ public class Player {
     public void moveUp() {
         row--;
     }
+
+    public void moveDown() {
+        row++;
+    }
+
+    public void moveLeft() {
+        col--;
+    }
+
+    public void moveRight() {
+        col++;
+    }
 }
