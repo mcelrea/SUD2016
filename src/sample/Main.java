@@ -20,10 +20,12 @@ public class Main extends Application {
     Player player = new Player("McElrea");
     public static final int CELLSIZE = 20;
     ArrayList<String> input = new ArrayList<String>();
+    Room room1 = new Room("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\RoomFiles\\room10-10.txt");
+    public static final int OFFSET = 40;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("SUD Alpha 0.0.0.3");
+        primaryStage.setTitle("SUD Alpha 0.0.0.4");
         Group root = new Group();
         Scene theScene = new Scene(root);
         primaryStage.setScene(theScene);
@@ -52,9 +54,13 @@ public class Main extends Application {
                 //backdrop
                 gc.setFill(Color.WHEAT);
                 gc.fillRect(0,0,800,600);
+
+                //map
+                room1.draw(gc);
+
                 //character
                 gc.setFill(Color.BLACK);
-                gc.fillText("@", player.getCol()*CELLSIZE, player.getRow()*CELLSIZE);
+                gc.fillText("@", OFFSET+player.getCol()*CELLSIZE, OFFSET+player.getRow()*CELLSIZE);
             }
         }.start();
 

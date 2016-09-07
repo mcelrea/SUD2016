@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,6 +53,19 @@ public class Room {
                     System.out.print(myRoom[i][j]);
             }
             System.out.println();
+        }
+    }
+
+    public void draw(GraphicsContext gc) {
+
+        //go through the entire room array (table)
+        for(int row=0; row < myRoom.length; row++) {
+            for(int col=0; col < myRoom[row].length; col++) {
+                if(myRoom[row][col] == 1) {
+                    gc.setFill(Color.BLACK);
+                    gc.fillText("1",Main.OFFSET+col*20,Main.OFFSET+row*20);
+                }
+            }
         }
     }
 }
