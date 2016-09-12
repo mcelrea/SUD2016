@@ -10,8 +10,8 @@ public class Player {
 
     public Player(String n) {
         name = n;
-        row = 20;
-        col = 20;
+        row = 10;
+        col = 10;
     }
 
     public int getRow() {
@@ -22,19 +22,63 @@ public class Player {
         return col;
     }
 
-    public void moveUp() {
-        row--;
+    public void moveUp(Room room) {
+        //check to make sure I stay in bounds
+        if(row == 0) {
+            return; //exit, do not move
+        }
+        //check to make sure there is no wall above me
+        else if(room.getCell(row-1,col) == 1) {
+            return; //exit, do not move
+        }
+        //else allow player to move
+        else {
+            row--;
+        }
     }
 
-    public void moveDown() {
-        row++;
+    public void moveDown(Room room) {
+        //check to make sure I stay in bounds
+        if(row == 19) {
+            return; //exit, do not move
+        }
+        //check to make sure there is no wall below me
+        else if(room.getCell(row+1,col) == 1) {
+            return; //exit, do not move
+        }
+        //else allow player to move
+        else {
+            row++;
+        }
     }
 
-    public void moveLeft() {
-        col--;
+    public void moveLeft(Room room) {
+        //check to make sure I stay in bounds
+        if(col == 0) {
+            return; //exit, do not move
+        }
+        //check to make sure there is no wall left of me
+        else if(room.getCell(row,col-1) == 1) {
+            return; //exit, do not move
+        }
+        //else allow player to move
+        else {
+            col--;
+        }
     }
 
-    public void moveRight() {
-        col++;
+    public void moveRight(Room room) {
+        //check to make sure I stay in bounds
+        if(col == 19) {
+            return; //exit, do not move
+        }
+        //check to make sure there is no wall right of me
+        else if(room.getCell(row,col+1) == 1) {
+            return; //exit, do not move
+        }
+        //else allow player to move
+        else {
+            col++;
+        }
     }
 }

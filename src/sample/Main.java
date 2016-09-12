@@ -20,12 +20,12 @@ public class Main extends Application {
     Player player = new Player("McElrea");
     public static final int CELLSIZE = 20;
     ArrayList<String> input = new ArrayList<String>();
-    Room room1 = new Room("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\RoomFiles\\room10-10.txt");
+    Room room1 = new Room("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\RoomFiles\\room9-10.txt");
     public static final int OFFSET = 40;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("SUD Alpha 0.0.0.4");
+        primaryStage.setTitle("SUD Alpha 0.0.0.5");
         Group root = new Group();
         Scene theScene = new Scene(root);
         primaryStage.setScene(theScene);
@@ -73,28 +73,28 @@ public class Main extends Application {
         for(int i=0; i < input.size(); i++) {
             //if the input is equal to W
             if(input.get(i).equals("W")) {
-                player.moveUp();
+                player.moveUp(room1);
                 //remove W from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to S
             else if(input.get(i).equals("S")) {
-                player.moveDown();
+                player.moveDown(room1);
                 //remove S from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to A
             else if(input.get(i).equals("A")) {
-                player.moveLeft();
+                player.moveLeft(room1);
                 //remove A from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to D
             else if(input.get(i).equals("D")) {
-                player.moveRight();
+                player.moveRight(room1);
                 //remove D from list
                 input.remove(i);
                 i--;

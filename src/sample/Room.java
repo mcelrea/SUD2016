@@ -28,8 +28,11 @@ public class Room {
                         if(nextLine.substring(i,i+1).equals("1")) {
                             myRoom[row][col] = 1;
                         }
-                        if(nextLine.substring(i,i+1).equals(" ")) {
+                        else if(nextLine.substring(i,i+1).equals(" ")) {
                             myRoom[row][col] = 0;
+                        }
+                        else if(nextLine.substring(i,i+1).equals("E")) {
+                            myRoom[row][col] = 100;
                         }
                         col++;
                     }
@@ -67,5 +70,9 @@ public class Room {
                 }
             }
         }
+    }
+
+    public int getCell(int row, int col) {
+        return myRoom[row][col];
     }
 }
