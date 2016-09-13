@@ -5,13 +5,17 @@ package sample;
  */
 public class Player {
     private String name;
-    private int row;
-    private int col;
+    private int row;//row within a room
+    private int col;//col within a room
+    private int worldRow; //row within the world
+    private int worldCol; //col within the world
 
     public Player(String n) {
         name = n;
         row = 10;
         col = 10;
+        worldRow = 10;
+        worldCol = 10;
     }
 
     public int getRow() {
@@ -25,6 +29,11 @@ public class Player {
     public void moveUp(Room room) {
         //check to make sure I stay in bounds
         if(row == 0) {
+            //he's leaving the current room
+            if(room.getCell(row,col) == 100) {
+                worldRow--; //change the room
+                row = 18; //place player at bottom of next Room
+            }
             return; //exit, do not move
         }
         //check to make sure there is no wall above me
@@ -80,5 +89,21 @@ public class Player {
         else {
             col++;
         }
+    }
+
+    public int getWorldRow() {
+        return worldRow;
+    }
+
+    public void setWorldRow(int worldRow) {
+        this.worldRow = worldRow;
+    }
+
+    public int getWorldCol() {
+        return worldCol;
+    }
+
+    public void setWorldCol(int worldCol) {
+        this.worldCol = worldCol;
     }
 }

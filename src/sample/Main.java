@@ -20,7 +20,7 @@ public class Main extends Application {
     Player player = new Player("McElrea");
     public static final int CELLSIZE = 20;
     ArrayList<String> input = new ArrayList<String>();
-    Room room1 = new Room("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\RoomFiles\\room9-10.txt");
+    World world = new World();
     public static final int OFFSET = 40;
 
     @Override
@@ -56,7 +56,7 @@ public class Main extends Application {
                 gc.fillRect(0,0,800,600);
 
                 //map
-                room1.draw(gc);
+                world.drawRoom(player.getWorldRow(),player.getWorldCol(),gc);
 
                 //character
                 gc.setFill(Color.BLACK);
@@ -73,28 +73,28 @@ public class Main extends Application {
         for(int i=0; i < input.size(); i++) {
             //if the input is equal to W
             if(input.get(i).equals("W")) {
-                player.moveUp(room1);
+                player.moveUp(world.getRoom(player.getWorldRow(),player.getWorldCol()));
                 //remove W from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to S
             else if(input.get(i).equals("S")) {
-                player.moveDown(room1);
+                player.moveDown(world.getRoom(player.getWorldRow(),player.getWorldCol()));
                 //remove S from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to A
             else if(input.get(i).equals("A")) {
-                player.moveLeft(room1);
+                player.moveLeft(world.getRoom(player.getWorldRow(),player.getWorldCol()));
                 //remove A from list
                 input.remove(i);
                 i--;
             }
             //if the input is equal to D
             else if(input.get(i).equals("D")) {
-                player.moveRight(room1);
+                player.moveRight(world.getRoom(player.getWorldRow(),player.getWorldCol()));
                 //remove D from list
                 input.remove(i);
                 i--;
