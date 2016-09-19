@@ -25,7 +25,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setTitle("SUD Alpha 0.0.0.5");
+        primaryStage.setTitle("SUD Alpha 0.0.0.6");
         Group root = new Group();
         Scene theScene = new Scene(root);
         primaryStage.setScene(theScene);
@@ -59,8 +59,7 @@ public class Main extends Application {
                 world.drawRoom(player.getWorldRow(),player.getWorldCol(),gc);
 
                 //character
-                gc.setFill(Color.BLACK);
-                gc.fillText("@", OFFSET+player.getCol()*CELLSIZE, OFFSET+player.getRow()*CELLSIZE);
+                player.draw(gc);
             }
         }.start();
 
