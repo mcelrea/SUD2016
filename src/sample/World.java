@@ -12,8 +12,8 @@ public class World {
         rooms[9][11] = new Room("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\RoomFiles\\room9-11.txt");
     }
 
-    public void drawRoom(int row, int col, GraphicsContext gc) {
-        rooms[row][col].draw(gc);
+    public void drawRoom(int row, int col, Player player, GraphicsContext gc) {
+        rooms[row][col].draw(player, gc);
     }
 
     public Room getRoom(int row, int col) {

@@ -39,7 +39,7 @@ public class Player {
         gc.setFill(Color.BLACK);
         gc.fillText("Stats",510,95);
         gc.setStroke(Color.BLACK);
-        gc.strokeRoundRect(500,100,250,200,10,10);
+        gc.strokeRoundRect(500,100,250,210,10,10);
 
         //write the stat text
         gc.setFill(Color.BLACK);
