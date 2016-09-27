@@ -8,6 +8,8 @@ public abstract class Enemy {
     private String symbol;
     private int row;
     private int col;
+    protected long actRate; //1000 ms = 1 second
+    protected long lastAct; //1000 ms = 1 second
 
     public Enemy(int hp, String name, String symbol) {
         this.hp = hp;

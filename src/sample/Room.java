@@ -140,4 +140,10 @@ public class Room {
     public void addItem(Item item) {
         items.add(item);
     }
+
+    public void enemiesAct(World world, Player player) {
+        for(int i=0; i < enemies.size(); i++) {
+            enemies.get(i).act(world,player);
+        }
+    }
 }

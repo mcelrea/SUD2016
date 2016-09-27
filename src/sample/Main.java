@@ -56,6 +56,7 @@ public class Main extends Application {
                 gc.fillRect(0,0,800,600);
 
                 //map
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).enemiesAct(world,player);
                 world.drawRoom(player.getWorldRow(),player.getWorldCol(),player,gc);
 
                 //character
