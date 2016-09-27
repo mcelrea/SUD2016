@@ -98,6 +98,12 @@ public class Main extends Application {
                 input.remove(i);
                 i--;
             }
+            else if(input.get(i).equals("E")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).pickUpItem(player);
+                //remove E from list
+                input.remove(i);
+                i--;
+            }
         }
     }
 

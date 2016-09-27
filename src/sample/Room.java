@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Room {
     int myRoom[][];
     ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public Room(String path) {
         myRoom = new int[20][20];
@@ -43,7 +44,14 @@ public class Room {
                             ringOfStrength.setRow(row);
                             ringOfStrength.setCol(col);
                             ringOfStrength.setSymbol("O");
+                            ringOfStrength.setXp(10);
                             addItem(ringOfStrength);
+                        }
+                        else if(nextLine.substring(i,i+1).equals("S")) {
+                            Skeleton skel = new Skeleton(3,"Skeleton");
+                            skel.setRow(row);
+                            skel.setCol(col);
+                            enemies.add(skel);
                         }
                         col++;
                     }
@@ -96,12 +104,31 @@ public class Room {
                 gc.fillText("Press 'E' to pick up", 10, 490);
             }
         }
+
+        //go through all the enemies
+        for(int i=0; i < enemies.size(); i++) {
+            enemies.get(i).draw(gc);
+        }
     }
 
     public void pickUpItem(Player player) {
         Item item;
         for(int i=0; i < items.size(); i++) {
-
+            //if the player (row,col) matches the items(row, col)
+            if(player.getRow() == items.get(i).getRow() &&
+                    player.getCol() == items.get(i).getCol()) {
+                item = items.get(i); //grab  the item
+                items.remove(i); //remove the item from the room
+                i--;
+                player.setVitality(player.getVitality() + item.getVitality());
+                player.setXp(player.getXp() + item.getXp());
+                player.setStrength(player.getStrength() + item.getStrength());
+                player.setLuck(player.getLuck() + item.getLuck());
+                player.setMagicka(player.getMagicka() + item.getMagicka());
+                player.setIntelligence(player.getIntelligence() + item.getIntelligence());
+                player.setWisdom(player.getWisdom() + item.getWisdom());
+                player.updateStats();
+            }
         }
     }
 

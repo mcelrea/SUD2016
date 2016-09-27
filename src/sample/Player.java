@@ -21,7 +21,8 @@ public class Player {
     private int magicka=3; //need magicka to cast spells
     private int intelligence=1; //more intel = stronger magick
     private int wisdom=1; //more wisdom = more magicka
-
+    private int level = 1;
+    private int xpLevels[] = {0,0,10,20,30,50,75,100};
 
     public Player(String n) {
         name = n;
@@ -29,6 +30,7 @@ public class Player {
         col = 10;
         worldRow = 10;
         worldCol = 10;
+        updateStats();
     }
 
     public void draw(GraphicsContext gc) {
@@ -37,7 +39,7 @@ public class Player {
 
         //draw stat box
         gc.setFill(Color.BLACK);
-        gc.fillText("Stats",510,95);
+        gc.fillText(name + " - " + level,510,95);
         gc.setStroke(Color.BLACK);
         gc.strokeRoundRect(500,100,250,210,10,10);
 
@@ -165,5 +167,106 @@ public class Player {
 
     public void setWorldCol(int worldCol) {
         this.worldCol = worldCol;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getVitality() {
+        return vitality;
+    }
+
+    public void setVitality(int vitality) {
+        this.vitality = vitality;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getDamageRating() {
+        return damageRating;
+    }
+
+    public void setDamageRating(int damageRating) {
+        this.damageRating = damageRating;
+    }
+
+    public int getLuck() {
+        return luck;
+    }
+
+    public void setLuck(int luck) {
+        this.luck = luck;
+    }
+
+    public int getMagicka() {
+        return magicka;
+    }
+
+    public void setMagicka(int magicka) {
+        this.magicka = magicka;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getWisdom() {
+        return wisdom;
+    }
+
+    public void setWisdom(int wisdom) {
+        this.wisdom = wisdom;
+    }
+
+    public void updateStats() {
+        hp = (vitality*2) + (level*2) + 2;
+        magicka = (wisdom * 2);
+        damageRating = (strength * 2);
+
+        for(int i=0; i < xpLevels.length; i++) {
+            if(xp < xpLevels[i]) {
+                level = i-1;
+                break;
+            }
+        }
     }
 }
