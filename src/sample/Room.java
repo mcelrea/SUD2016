@@ -146,4 +146,14 @@ public class Room {
             enemies.get(i).act(world,player);
         }
     }
+
+    public Enemy getEnemyCollision(Player player) {
+        for(int i=0; i < enemies.size(); i++) {
+            if(player.getRow() == enemies.get(i).getRow() &&
+                    player.getCol() == enemies.get(i).getCol()) {
+                return enemies.get(i);
+            }
+        }
+        return null; //player is not on any enemy
+    }
 }

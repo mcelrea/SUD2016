@@ -22,6 +22,8 @@ public class Main extends Application {
     ArrayList<String> input = new ArrayList<String>();
     World world = new World();
     public static final int OFFSET = 40;
+    public static final int MAP=1, FIGHT=2;
+    public static int gameState = MAP;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -49,23 +51,49 @@ public class Main extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                System.out.println(input);
-                processInput();
-                //backdrop
-                gc.setFill(Color.WHEAT);
-                gc.fillRect(0,0,800,600);
+                if(gameState == MAP) {
+                    //System.out.println(input);
+                    processInput();
+                    //backdrop
+                    gc.setFill(Color.WHEAT);
+                    gc.fillRect(0, 0, 800, 600);
 
-                //map
-                world.getRoom(player.getWorldRow(),player.getWorldCol()).enemiesAct(world,player);
-                world.drawRoom(player.getWorldRow(),player.getWorldCol(),player,gc);
+                    //map
+                    Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
+                    currentRoom.enemiesAct(world, player);
+                    world.drawRoom(player.getWorldRow(), player.getWorldCol(), player, gc);
 
-                //character
-                player.draw(gc);
+                    //character
+                    player.draw(gc);
+
+                    //check for enemy collision
+                    if(currentRoom.getEnemyCollision(player) != null) {
+                        gameState = FIGHT;
+                    }
+                }
+                else if(gameState == FIGHT) {
+                    //backdrop
+                    gc.setFill(Color.BROWN);
+                    gc.fillRect(0, 0, 800, 600);
+
+                    processFightInput();
+                }
             }
         }.start();
 
         //last line
         primaryStage.show();
+    }
+
+    private void processFightInput() {
+        //go through the entire list of input
+        for(int i=0; i < input.size(); i++) {
+            if(input.get(i).equals("L")) {
+                gameState = MAP;
+                input.remove(i);
+                i--;
+            }
+        }
     }
 
     private void processInput() {
