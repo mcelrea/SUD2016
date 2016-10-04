@@ -24,6 +24,7 @@ public class Main extends Application {
     public static final int OFFSET = 40;
     public static final int MAP=1, FIGHT=2;
     public static int gameState = MAP;
+    Enemy currentEnemy = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -68,6 +69,7 @@ public class Main extends Application {
 
                     //check for enemy collision
                     if(currentRoom.getEnemyCollision(player) != null) {
+                        currentEnemy = currentRoom.getEnemyCollision(player);
                         gameState = FIGHT;
                     }
                 }
@@ -75,6 +77,8 @@ public class Main extends Application {
                     //backdrop
                     gc.setFill(Color.BROWN);
                     gc.fillRect(0, 0, 800, 600);
+
+                    drawFightText(gc);
 
                     processFightInput();
                 }
@@ -85,11 +89,37 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    private void drawFightText(GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillText("FIGHT", 350,50);
+        gc.fillText(currentEnemy.getName(), 500,100);
+        gc.fillText(player.getName(), 150,100);
+
+        //player health bar
+        gc.setFill(Color.ALICEBLUE);
+        gc.fillRect(150,120,100*(player.getHp()/(double)player.getMaxHp()),20);
+
+        //enemy health bar
+        gc.setFill(Color.DIMGREY);
+        gc.fillRect(500,120,100*(currentEnemy.getHp()/(double)currentEnemy.getMaxHp()),20);
+    }
+
+
     private void processFightInput() {
         //go through the entire list of input
         for(int i=0; i < input.size(); i++) {
             if(input.get(i).equals("L")) {
                 gameState = MAP;
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("O")) {
+                player.setHp(player.getHp()-1);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("P")) {
+                currentEnemy.setHp(currentEnemy.getHp()-1);
                 input.remove(i);
                 i--;
             }

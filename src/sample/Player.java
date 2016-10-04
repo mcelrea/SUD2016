@@ -13,6 +13,7 @@ public class Player {
     private int worldRow; //row within the world
     private int worldCol; //col within the world
     private int hp=6;
+    private int maxHp=6;
     private int vitality=1; //more vitality = more health
     private int xp=0;
     private int strength=1; //more strength = hit harder
@@ -259,6 +260,7 @@ public class Player {
 
     public void updateStats() {
         hp = (vitality*2) + (level*2) + 2;
+        maxHp = (vitality*2) + (level*2) + 2;
         magicka = (wisdom * 2);
         damageRating = (strength * 2);
 
@@ -268,5 +270,13 @@ public class Player {
                 break;
             }
         }
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 }

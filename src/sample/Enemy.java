@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 public abstract class Enemy {
     private int hp;
+    private int maxHp;
     private String name;
     private String symbol;
     private int row;
@@ -15,6 +16,7 @@ public abstract class Enemy {
 
     public Enemy(int hp, String name, String symbol) {
         this.hp = hp;
+        this.maxHp = hp;
         this.name = name;
         this.symbol = symbol;
     }
@@ -62,6 +64,14 @@ public abstract class Enemy {
     public void draw(GraphicsContext gc) {
         gc.setFill(color);
         gc.fillText(symbol,Main.OFFSET+col*20,Main.OFFSET+row*20);
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 
     public abstract void act(World world, Player player);
