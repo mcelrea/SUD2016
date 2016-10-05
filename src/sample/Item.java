@@ -13,6 +13,7 @@ public class Item {
     private int row;
     private int col;
     private String symbol;
+    private Ability ability;
 
     public Item(String name, String description) {
         this.name = name;
@@ -113,5 +114,13 @@ public class Item {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public Ability getAbility() {
+        return ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 }

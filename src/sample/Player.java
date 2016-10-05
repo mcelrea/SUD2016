@@ -3,6 +3,8 @@ package sample;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 /**
  * Created by mcelrea on 9/2/2016.
  */
@@ -24,6 +26,8 @@ public class Player {
     private int wisdom=1; //more wisdom = more magicka
     private int level = 1;
     private int xpLevels[] = {0,0,10,20,30,50,75,100};
+    private Ability activeAbilities[] = new Ability[6];
+    private ArrayList<Ability> inactiveAbilities = new ArrayList<Ability>();
 
     public Player(String n) {
         name = n;
@@ -32,6 +36,31 @@ public class Player {
         worldRow = 10;
         worldCol = 10;
         updateStats();
+    }
+
+    public void drawAbilities(GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.fillText("Active Abilities", 100,175);
+        //go through all active abilities
+        for(int i=0; i < activeAbilities.length; i++) {
+            if(activeAbilities[i] == null) {
+                gc.fillText((i+1) + ". no ability", 100, 200+(i*25));
+            }
+            else {
+                gc.fillText((i+1) + ". " + activeAbilities[i].getName(), 100, 200+(i*25));
+            }
+        }
+    }
+
+    public void addAbility(Ability a) {
+        inactiveAbilities.add(a);
+
+        for(int i=0; i < activeAbilities.length; i++) {
+            if(activeAbilities[i] == null) {
+                activeAbilities[i] = a;
+                break;//exit, stop looking
+            }
+        }
     }
 
     public void draw(GraphicsContext gc) {

@@ -79,6 +79,7 @@ public class Main extends Application {
                     gc.fillRect(0, 0, 800, 600);
 
                     drawFightText(gc);
+                    player.drawAbilities(gc);
 
                     processFightInput();
                 }

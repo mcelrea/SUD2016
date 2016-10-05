@@ -45,6 +45,9 @@ public class Room {
                             ringOfStrength.setCol(col);
                             ringOfStrength.setSymbol("O");
                             ringOfStrength.setXp(10);
+                            ringOfStrength.setAbility(new Ability("Smash and Dash", "You smash and dash"));
+                            ringOfStrength.getAbility().setMinDamage(1);
+                            ringOfStrength.getAbility().setMaxDamage(3);
                             addItem(ringOfStrength);
                         }
                         else if(nextLine.substring(i,i+1).equals("S")) {
@@ -127,6 +130,9 @@ public class Room {
                 player.setMagicka(player.getMagicka() + item.getMagicka());
                 player.setIntelligence(player.getIntelligence() + item.getIntelligence());
                 player.setWisdom(player.getWisdom() + item.getWisdom());
+                if(item.getAbility() != null) {
+                    player.addAbility(item.getAbility());
+                }
                 player.updateStats();
             }
         }
