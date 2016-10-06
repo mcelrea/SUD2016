@@ -38,6 +38,8 @@ public class Skeleton extends Enemy{
 
     @Override
     public void attack(Player player) {
-
+        player.setHp(player.getHp()-1);
+        Main.combatText = getName() + " used [dry rot] for 1 damage.";
+        Main.turn = Main.PLAYERTURN;
     }
 }

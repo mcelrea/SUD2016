@@ -63,6 +63,25 @@ public class Player {
         }
     }
 
+    public void useAbility(int abilityNum, Enemy enemy) {
+        Ability a = activeAbilities[abilityNum-1];
+
+        if(a != null) {
+            //create a random number between minDamage and maxDamage
+            int damage = (int) (a.getMinDamage() + Math.random() * a.getMaxDamage());
+            enemy.setHp(enemy.getHp() - damage);
+            Main.combatText = "You use [" + a.getName() + "] to cause " + damage + " damage.";
+            Main.turn = Main.ENEMYTURN;
+        }
+    }
+
+
+
+
+
+
+
+
     public void draw(GraphicsContext gc) {
         gc.setFill(Color.BLACK);
         gc.fillText("@", Main.OFFSET+col*Main.CELLSIZE, Main.OFFSET+row*Main.CELLSIZE);

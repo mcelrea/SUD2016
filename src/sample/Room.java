@@ -51,7 +51,7 @@ public class Room {
                             addItem(ringOfStrength);
                         }
                         else if(nextLine.substring(i,i+1).equals("S")) {
-                            Skeleton skel = new Skeleton(3,"Skeleton");
+                            Skeleton skel = new Skeleton(30,"Skeleton");
                             skel.setRow(row);
                             skel.setCol(col);
                             enemies.add(skel);
@@ -136,6 +136,10 @@ public class Room {
                 player.updateStats();
             }
         }
+    }
+
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
     }
 
     public int getCell(int row, int col) {

@@ -22,9 +22,11 @@ public class Main extends Application {
     ArrayList<String> input = new ArrayList<String>();
     World world = new World();
     public static final int OFFSET = 40;
-    public static final int MAP=1, FIGHT=2;
+    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4;
     public static int gameState = MAP;
+    public static int turn = PLAYERTURN;
     Enemy currentEnemy = null;
+    public static String combatText = "COMBAT TEXT";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -81,7 +83,20 @@ public class Main extends Application {
                     drawFightText(gc);
                     player.drawAbilities(gc);
 
-                    processFightInput();
+                    if(turn == PLAYERTURN) {
+                        processFightInput();
+                    }
+                    else {//else its the enemies turn
+                        currentEnemy.attack(player);
+                    }
+
+                    if(currentEnemy.getHp() <= 0) {
+                        gameState = MAP;
+                        Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
+                        currentRoom.removeEnemy(currentEnemy); //remove enemy from game
+                        currentEnemy = null; //there is no longer a current enemy
+                        combatText = "";
+                    }
                 }
             }
         }.start();
@@ -103,6 +118,10 @@ public class Main extends Application {
         //enemy health bar
         gc.setFill(Color.DIMGREY);
         gc.fillRect(500,120,100*(currentEnemy.getHp()/(double)currentEnemy.getMaxHp()),20);
+
+        //draw the combat text
+        gc.setFill(Color.GOLD);
+        gc.fillText(combatText,200,400);
     }
 
 
@@ -121,6 +140,36 @@ public class Main extends Application {
             }
             else if(input.get(i).equals("P")) {
                 currentEnemy.setHp(currentEnemy.getHp()-1);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT1")) {
+                player.useAbility(1,currentEnemy);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT2")) {
+                player.useAbility(2,currentEnemy);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT3")) {
+                player.useAbility(3,currentEnemy);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT4")) {
+                player.useAbility(4,currentEnemy);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT5")) {
+                player.useAbility(5,currentEnemy);
+                input.remove(i);
+                i--;
+            }
+            else if(input.get(i).equals("DIGIT6")) {
+                player.useAbility(6,currentEnemy);
                 input.remove(i);
                 i--;
             }
