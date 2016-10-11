@@ -51,7 +51,7 @@ public class Room {
                             addItem(ringOfStrength);
                         }
                         else if(nextLine.substring(i,i+1).equals("S")) {
-                            Skeleton skel = new Skeleton(30,"Skeleton");
+                            Skeleton skel = new Skeleton(3,"Skeleton");
                             skel.setRow(row);
                             skel.setCol(col);
                             enemies.add(skel);

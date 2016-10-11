@@ -26,7 +26,11 @@ public class Main extends Application {
     public static int gameState = MAP;
     public static int turn = PLAYERTURN;
     Enemy currentEnemy = null;
-    public static String combatText = "COMBAT TEXT";
+    public static String combatText1 = "COMBAT TEXT";
+    public static String combatText2 = "COMBAT TEXT";
+    public static String combatText3 = "COMBAT TEXT";
+    public static String combatText4 = "COMBAT TEXT";
+    public static String combatText5 = "COMBAT TEXT";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -95,7 +99,7 @@ public class Main extends Application {
                         Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
                         currentRoom.removeEnemy(currentEnemy); //remove enemy from game
                         currentEnemy = null; //there is no longer a current enemy
-                        combatText = "";
+                        combatText1 = "";
                     }
                 }
             }
@@ -121,7 +125,22 @@ public class Main extends Application {
 
         //draw the combat text
         gc.setFill(Color.GOLD);
-        gc.fillText(combatText,200,400);
+        gc.fillText(combatText1,10,400);
+        gc.fillText(combatText2,10,425);
+        gc.fillText(combatText3,10,450);
+        gc.fillText(combatText4,10,475);
+        gc.fillText(combatText5,10,500);
+    }
+
+    public static void addCombatText(String text) {
+        //push all text down one
+        combatText5 = combatText4;
+        combatText4 = combatText3;
+        combatText3 = combatText2;
+        combatText2 = combatText1;
+
+        //add new text
+        combatText1 = text;
     }
 
 

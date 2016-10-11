@@ -70,7 +70,7 @@ public class Player {
             //create a random number between minDamage and maxDamage
             int damage = (int) (a.getMinDamage() + Math.random() * a.getMaxDamage());
             enemy.setHp(enemy.getHp() - damage);
-            Main.combatText = "You use [" + a.getName() + "] to cause " + damage + " damage.";
+            Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.");
             Main.turn = Main.ENEMYTURN;
         }
     }
