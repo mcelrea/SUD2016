@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Graphical_SUD_P2.jnlp">
+  <information>
+    <title>Test</title>
+    <vendor>Test</vendor>
+    <description>Graphical SUD P2</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Graphical_SUD_P2.jar" size="571723" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="Test"  name="Graphical SUD P2" />
+  <update check="background"/>
+</jnlp>

@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="Graphical SUD P2">
+    <output-path>$PROJECT_DIR$/out/artifacts/Graphical_SUD_P2</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="Test" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Test" />
+        <option name="vendor" value="Test" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Graphical_SUD_P2.jar">
+        <element id="module-output" name="Graphical SUD P2" />
+      </element>
+    </root>
+  </artifact>
+</component>

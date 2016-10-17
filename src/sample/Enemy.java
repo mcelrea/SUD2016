@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public abstract class Enemy {
@@ -13,6 +14,7 @@ public abstract class Enemy {
     protected long actRate; //1000 ms = 1 second
     protected long lastAct; //1000 ms = 1 second
     protected Color color = Color.BLACK;
+    protected Image forwardImage;
 
     public Enemy(int hp, String name, String symbol) {
         this.hp = hp;
@@ -63,7 +65,8 @@ public abstract class Enemy {
 
     public void draw(GraphicsContext gc) {
         gc.setFill(color);
-        gc.fillText(symbol,Main.OFFSET+col*20,Main.OFFSET+row*20);
+        //gc.fillText(symbol,Main.OFFSET+col*20,Main.OFFSET+row*20);
+        gc.drawImage(forwardImage,Main.OFFSET+col*20,Main.OFFSET+row*20-20);
     }
 
     public int getMaxHp() {

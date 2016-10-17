@@ -7,12 +7,15 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -22,8 +25,9 @@ public class Main extends Application {
     ArrayList<String> input = new ArrayList<String>();
     World world = new World();
     public static final int OFFSET = 40;
-    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4;
-    public static int gameState = MAP;
+    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4, INTRO=5;
+    public static int gameState = INTRO;
+    int introPage = 1;
     public static int turn = PLAYERTURN;
     Enemy currentEnemy = null;
     public static String combatText1 = "COMBAT TEXT";
@@ -31,6 +35,7 @@ public class Main extends Application {
     public static String combatText3 = "COMBAT TEXT";
     public static String combatText4 = "COMBAT TEXT";
     public static String combatText5 = "COMBAT TEXT";
+    Image titleImage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -44,6 +49,10 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Font myFont = Font.font("Courier New", FontWeight.BOLD, 24);
         gc.setFont(myFont);
+
+        //load my image files
+        File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\titleScreen.jpg");
+        titleImage = new Image(new FileInputStream(file));
 
         theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -102,11 +111,49 @@ public class Main extends Application {
                         combatText1 = "";
                     }
                 }
+                else if(gameState == INTRO) {
+                    drawIntro(gc);
+                    processIntroInput();
+
+                    gc.setFill(Color.WHITE);
+                    if(introPage == 1) {
+                        gc.drawImage(titleImage,0,0);
+                    }
+                    else if(introPage == 2) {
+                        gc.fillText("Page 2", 400,300);
+                    }
+                    else if(introPage == 3) {
+                        gc.fillText("Page 3", 400,300);
+                    }
+                    else if(introPage == 4) {
+                        gc.fillText("Page 4", 400,300);
+                    }
+                }
             }
         }.start();
 
         //last line
         primaryStage.show();
+    }
+
+    private void processIntroInput() {
+        //go through the entire list of input
+        for(int i=0; i < input.size(); i++) {
+            if (input.get(i).equals("SPACE")) {
+                introPage++;
+                if(introPage > 4) {
+                    gameState = MAP;
+                }
+                input.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private void drawIntro(GraphicsContext gc) {
+        //backdrop
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,800,600);
     }
 
     private void drawFightText(GraphicsContext gc) {

@@ -1,6 +1,11 @@
 package sample;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Skeleton extends Enemy{
 
@@ -9,6 +14,12 @@ public class Skeleton extends Enemy{
         actRate = 1000; //1 second
         lastAct = System.currentTimeMillis();
         color = Color.BLUEVIOLET;
+        File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\skeleton.png");
+        try {
+            forwardImage = new Image(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

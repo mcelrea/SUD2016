@@ -1,8 +1,12 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +32,7 @@ public class Player {
     private int xpLevels[] = {0,0,10,20,30,50,75,100};
     private Ability activeAbilities[] = new Ability[6];
     private ArrayList<Ability> inactiveAbilities = new ArrayList<Ability>();
+    private Image forwardImage;
 
     public Player(String n) {
         name = n;
@@ -36,6 +41,12 @@ public class Player {
         worldRow = 10;
         worldCol = 10;
         updateStats();
+        File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\characterForward.png");
+        try {
+            forwardImage = new Image(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void drawAbilities(GraphicsContext gc) {
@@ -84,7 +95,8 @@ public class Player {
 
     public void draw(GraphicsContext gc) {
         gc.setFill(Color.BLACK);
-        gc.fillText("@", Main.OFFSET+col*Main.CELLSIZE, Main.OFFSET+row*Main.CELLSIZE);
+        //gc.fillText("@", Main.OFFSET+col*Main.CELLSIZE, Main.OFFSET+row*Main.CELLSIZE);
+        gc.drawImage(forwardImage,Main.OFFSET+col*Main.CELLSIZE, Main.OFFSET+row*Main.CELLSIZE-20);
 
         //draw stat box
         gc.setFill(Color.BLACK);
