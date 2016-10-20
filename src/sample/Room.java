@@ -44,7 +44,8 @@ public class Room {
                         }
                         else if(nextLine.substring(i,i+1).equals("r")) {
                             Item ringOfStrength = new Item("Ring of Strength",
-                                    "A small gold ring glitters on the floor beneath you.");
+                                    "A small gold ring glitters on the floor beneath you.",
+                                    "C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\ring.png");
                             ringOfStrength.setStrength(1);
                             ringOfStrength.setRow(row);
                             ringOfStrength.setCol(col);
@@ -56,7 +57,7 @@ public class Room {
                             addItem(ringOfStrength);
                         }
                         else if(nextLine.substring(i,i+1).equals("S")) {
-                            Skeleton skel = new Skeleton(3,"Skeleton");
+                            Skeleton skel = new Skeleton(4,"Skeleton");
                             skel.setRow(row);
                             skel.setCol(col);
                             enemies.add(skel);
@@ -102,9 +103,7 @@ public class Room {
         //go through all the items in the room and draw them
         gc.setFill(Color.BLACK);
         for(int i=0; i < items.size(); i++) {
-            gc.fillText(items.get(i).getSymbol(),
-                        Main.OFFSET + items.get(i).getCol()*20,
-                        Main.OFFSET + items.get(i).getRow()*20);
+            items.get(i).draw(gc);
             //if the player is on top of the item
             if(items.get(i).getRow() == player.getRow() &&
                     items.get(i).getCol() == player.getCol()) {

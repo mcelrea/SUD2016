@@ -1,5 +1,12 @@
 package sample;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class Item {
     private String name;
     private String description;
@@ -14,10 +21,17 @@ public class Item {
     private int col;
     private String symbol;
     private Ability ability;
+    private Image image;
 
-    public Item(String name, String description) {
+    public Item(String name, String description, String path) {
         this.name = name;
         this.description = description;
+        File file = new File(path);
+        try {
+            image = new Image(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getName() {
@@ -122,5 +136,11 @@ public class Item {
 
     public void setAbility(Ability ability) {
         this.ability = ability;
+    }
+
+    public void draw(GraphicsContext gc) {
+        gc.drawImage(image,
+                Main.OFFSET+col*20,
+                Main.OFFSET+row*20-20);
     }
 }
