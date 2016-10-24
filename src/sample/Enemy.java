@@ -15,6 +15,7 @@ public abstract class Enemy {
     protected long lastAct; //1000 ms = 1 second
     protected Color color = Color.BLACK;
     protected Image forwardImage;
+    protected int xp;
 
     public Enemy(int hp, String name, String symbol) {
         this.hp = hp;
@@ -75,6 +76,14 @@ public abstract class Enemy {
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
     public abstract void act(World world, Player player);

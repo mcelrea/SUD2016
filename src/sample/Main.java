@@ -25,7 +25,7 @@ public class Main extends Application {
     ArrayList<String> input = new ArrayList<String>();
     World world = new World();
     public static final int OFFSET = 40;
-    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4, INTRO=5;
+    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4, INTRO=5, GAMEOVER=6;
     public static int gameState = INTRO;
     int introPage = 1;
     public static int turn = PLAYERTURN;
@@ -36,6 +36,7 @@ public class Main extends Application {
     public static String combatText4 = "COMBAT TEXT";
     public static String combatText5 = "COMBAT TEXT";
     Image titleImage;
+    Image gameOverImage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -53,6 +54,8 @@ public class Main extends Application {
         //load my image files
         File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\titleScreen.jpg");
         titleImage = new Image(new FileInputStream(file));
+        file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\endScreen.png");
+        gameOverImage = new Image(new FileInputStream(file));
 
         theScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -101,9 +104,13 @@ public class Main extends Application {
                     }
                     else {//else its the enemies turn
                         currentEnemy.attack(player);
+                        if(player.getHp() <= 0) {
+                            gameState = GAMEOVER;
+                        }
                     }
 
                     if(currentEnemy.getHp() <= 0) {
+                        player.setXp(player.getXp()+currentEnemy.getXp());
                         gameState = MAP;
                         Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
                         currentRoom.removeEnemy(currentEnemy); //remove enemy from game
@@ -129,11 +136,29 @@ public class Main extends Application {
                         gc.fillText("Page 4", 400,300);
                     }
                 }
+                else if(gameState == GAMEOVER) {
+                    gc.drawImage(gameOverImage,0,0);
+                    processGameOverInput();
+                }
             }
         }.start();
 
         //last line
         primaryStage.show();
+    }
+
+    private void processGameOverInput() {
+        //go through the entire list of input
+        for(int i=0; i < input.size(); i++) {
+            if (input.get(i).equals("SPACE")) {
+                player = new Player(player.getName());//restart player
+                world = new World();//reset world
+                gameState = INTRO;
+                introPage = 1;
+                input.remove(i);
+                i--;
+            }
+        }
     }
 
     private void processIntroInput() {

@@ -14,6 +14,7 @@ public class Skeleton extends Enemy{
         actRate = 1000; //1 second
         lastAct = System.currentTimeMillis();
         color = Color.BLUEVIOLET;
+        xp = 3;
         File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\skeleton.png");
         try {
             forwardImage = new Image(new FileInputStream(file));
