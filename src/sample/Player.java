@@ -18,16 +18,19 @@ public class Player {
     private int col;//col within a room
     private int worldRow; //row within the world
     private int worldCol; //col within the world
-    private int hp=6;
-    private int maxHp=6;
-    private int vitality=1; //more vitality = more health
+    private int hp;
+    private int maxHp;
     private int xp=0;
-    private int strength=1; //more strength = hit harder
-    private int damageRating=1;
-    private int luck=1; //more luck = more critical hits
-    private int magicka=3; //need magicka to cast spells
-    private int intelligence=1; //more intel = stronger magick
-    private int wisdom=1; //more wisdom = more magicka
+    private int strength; //more strength = hit harder
+    private int strengthModifier; //how much harder
+    private int dexterity; //more dexterity = hit harder with arrows, knives
+    private int dexterityModifier; //how much harder
+    private int constitution; //more health
+    private int constitutionModifier; //how much more health
+    private int wisdom; //spell damage
+    private int wisdomModifier; //how much more damage
+    private int armorClass; //how hard are we to hit
+    private int gold;
     private int level = 1;
     private int xpLevels[] = {0,0,10,20,30,50,75,100};
     private Ability activeAbilities[] = new Ability[6];
@@ -40,13 +43,24 @@ public class Player {
         col = 10;
         worldRow = 10;
         worldCol = 10;
-        updateStats();
         File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\characterForward.png");
         try {
             forwardImage = new Image(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        strength = Dice.rollForStartingStats();
+        strengthModifier = strength/2;
+        dexterity = Dice.rollForStartingStats();
+        dexterityModifier = dexterity/2;
+        wisdom = Dice.rollForStartingStats();
+        wisdomModifier = wisdom/2;
+        constitution = Dice.rollForStartingStats();
+        constitutionModifier = constitution/2;
+        armorClass = 10 + dexterityModifier;
+        gold = Dice.rollDice(4,4) + 10;
+        hp = Dice.rollDie(8) + constitution/2;
+        maxHp = hp;
     }
 
     public void drawAbilities(GraphicsContext gc) {
@@ -108,22 +122,19 @@ public class Player {
         gc.setFill(Color.BLACK);
         gc.fillText("      Health: " + hp, 510, 125);
         gc.setFill(Color.BLACK);
-        gc.fillText("     Magicka: " + magicka, 510, 145);
+        gc.fillText("          XP: " + xp, 510, 145);
         gc.setFill(Color.BLACK);
-        gc.fillText("          XP: " + xp, 510, 165);
+        gc.fillText("    Strength: " + strength, 510, 165);
         gc.setFill(Color.BLACK);
-        gc.fillText("    Strength: " + strength, 510, 200);
+        gc.fillText("   Dexterity: " + dexterity, 510, 185);
         gc.setFill(Color.BLACK);
-        gc.fillText("Intelligence: " + intelligence, 510, 220);
+        gc.fillText("      Wisdom: " + wisdom, 510, 205);
         gc.setFill(Color.BLACK);
-        gc.fillText("      Wisdom: " + wisdom, 510, 240);
+        gc.fillText("Constitution: " + constitution, 510, 225);
         gc.setFill(Color.BLACK);
-        gc.fillText("    Vitality: " + vitality, 510, 260);
+        gc.fillText(" Armor Class: " + armorClass, 510, 245);
         gc.setFill(Color.BLACK);
-        gc.fillText("        Luck: " + luck, 510, 280);
-        gc.setFill(Color.BLACK);
-        gc.fillText("   D. Rating: " + damageRating, 510, 300);
-
+        gc.fillText("        Gold: " + gold, 510, 265);
     }
 
     public int getRow() {
@@ -254,14 +265,6 @@ public class Player {
         this.hp = hp;
     }
 
-    public int getVitality() {
-        return vitality;
-    }
-
-    public void setVitality(int vitality) {
-        this.vitality = vitality;
-    }
-
     public int getXp() {
         return xp;
     }
@@ -278,38 +281,6 @@ public class Player {
         this.strength = strength;
     }
 
-    public int getDamageRating() {
-        return damageRating;
-    }
-
-    public void setDamageRating(int damageRating) {
-        this.damageRating = damageRating;
-    }
-
-    public int getLuck() {
-        return luck;
-    }
-
-    public void setLuck(int luck) {
-        this.luck = luck;
-    }
-
-    public int getMagicka() {
-        return magicka;
-    }
-
-    public void setMagicka(int magicka) {
-        this.magicka = magicka;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
     public int getWisdom() {
         return wisdom;
     }
@@ -318,25 +289,83 @@ public class Player {
         this.wisdom = wisdom;
     }
 
-    public void updateStats() {
-        hp = (vitality*2) + (level*2) + 2;
-        maxHp = (vitality*2) + (level*2) + 2;
-        magicka = (wisdom * 2);
-        damageRating = (strength * 2);
-
-        for(int i=0; i < xpLevels.length; i++) {
-            if(xp < xpLevels[i]) {
-                level = i-1;
-                break;
-            }
-        }
-    }
-
     public int getMaxHp() {
         return maxHp;
     }
 
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+    }
+
+    public int getStrengthModifier() {
+        return strengthModifier;
+    }
+
+    public void setStrengthModifier(int strengthModifier) {
+        this.strengthModifier = strengthModifier;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getDexterityModifier() {
+        return dexterityModifier;
+    }
+
+    public void setDexterityModifier(int dexterityModifier) {
+        this.dexterityModifier = dexterityModifier;
+    }
+
+    public int getConstitution() {
+        return constitution;
+    }
+
+    public void setConstitution(int constitution) {
+        this.constitution = constitution;
+    }
+
+    public int getConstitutionModifier() {
+        return constitutionModifier;
+    }
+
+    public void setConstitutionModifier(int constitutionModifier) {
+        this.constitutionModifier = constitutionModifier;
+    }
+
+    public int getWisdomModifier() {
+        return wisdomModifier;
+    }
+
+    public void setWisdomModifier(int wisdomModifier) {
+        this.wisdomModifier = wisdomModifier;
+    }
+
+    public int getArmorClass() {
+        return armorClass;
+    }
+
+    public void setArmorClass(int armorClass) {
+        this.armorClass = armorClass;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

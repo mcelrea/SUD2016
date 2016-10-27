@@ -128,17 +128,12 @@ public class Room {
                 item = items.get(i); //grab  the item
                 items.remove(i); //remove the item from the room
                 i--;
-                player.setVitality(player.getVitality() + item.getVitality());
                 player.setXp(player.getXp() + item.getXp());
                 player.setStrength(player.getStrength() + item.getStrength());
-                player.setLuck(player.getLuck() + item.getLuck());
-                player.setMagicka(player.getMagicka() + item.getMagicka());
-                player.setIntelligence(player.getIntelligence() + item.getIntelligence());
                 player.setWisdom(player.getWisdom() + item.getWisdom());
                 if(item.getAbility() != null) {
                     player.addAbility(item.getAbility());
                 }
-                player.updateStats();
             }
         }
     }
