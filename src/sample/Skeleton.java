@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 
 public class Skeleton extends Enemy{
 
-    public Skeleton(int hp, String name) {
-        super(hp, name, "S");
+    public Skeleton(String name, int hpModifier, int strengthModifier,
+                    int dexerityModifier, int wisdomModifier, int attackModifier) {
         actRate = 1000; //1 second
         lastAct = System.currentTimeMillis();
         color = Color.BLUEVIOLET;
@@ -21,6 +21,32 @@ public class Skeleton extends Enemy{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        this.name = name;
+        this.hpModifier = hpModifier;
+        hp = Dice.rollDice(3,6) + hpModifier;
+        maxHp = hp;
+        strength = 3;
+        this.strengthModifer = strengthModifier;
+        dexterity = 8;
+        this.dexterityModifier = dexerityModifier;
+        wisdom = 3;
+        this.wisdomModifier = wisdomModifier;
+        this.damageModifier = attackModifier;
+
+        abilities.add(new Ability("Swipe",
+                                  0,
+                                  "1d4",
+                                  Ability.STRENGTH,
+                                  0,
+                                  0,
+                                  0));
+        abilities.add(new Ability("Putrid Bile",
+                                  0,
+                                  "1d4",
+                                  Ability.WISDOM,
+                                  0,
+                                  0,
+                                  0));
     }
 
     @Override
@@ -50,8 +76,31 @@ public class Skeleton extends Enemy{
 
     @Override
     public void attack(Player player) {
-        player.setHp(player.getHp() - 1);
-        Main.addCombatText(getName() + " used [dry rot] for 1 damage.");
+
+        //choose either (1) Swipe or (2) Putrid Bile
+        int choice = (int) (1 + Math.random() * 2);
+        Ability a;
+        if(choice == 1) {
+            a = abilities.get(0);
+        }
+        else {
+            a = abilities.get(1);
+        }
+
+        int damage = Dice.rollDice(a.getNumOfDie(),a.getDieSides());
+        damage += damageModifier;
+        if(a.getModifierType() == Ability.STRENGTH) {
+            damage += strengthModifer;
+        }
+        else if(a.getModifierType() == Ability.DEXTERITY) {
+            damage += dexterityModifier;
+        }
+        else {
+            damage += wisdomModifier;
+        }
+
+        player.setHp(player.getHp() - damage);
+        Main.addCombatText(getName() + " used [" + a.getName() +" ] for " + damage + " damage.");
         Main.turn = Main.PLAYERTURN;
         lastAct = System.currentTimeMillis();
     }

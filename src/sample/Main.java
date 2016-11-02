@@ -85,6 +85,14 @@ public class Main extends Application {
                     //character
                     player.draw(gc);
 
+                    //draw the combat text
+                    gc.setFill(Color.BLACK);
+                    gc.fillText(combatText1,10,450);
+                    gc.fillText(combatText2,10,475);
+                    gc.fillText(combatText3,10,500);
+                    gc.fillText(combatText4,10,525);
+                    gc.fillText(combatText5,10,550);
+
                     //check for enemy collision
                     if(currentRoom.getEnemyCollision(player) != null) {
                         currentEnemy = currentRoom.getEnemyCollision(player);

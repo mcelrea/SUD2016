@@ -4,13 +4,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public abstract class Enemy {
-    private int hp;
-    private int maxHp;
-    private String name;
-    private String symbol;
-    private int row;
-    private int col;
+    protected int hp;
+    protected int maxHp;
+    protected String name;
+    protected String symbol;
+    protected int row;
+    protected int col;
     protected long actRate; //1000 ms = 1 second
     protected long lastAct; //1000 ms = 1 second
     protected Color color = Color.BLACK;
@@ -28,6 +30,11 @@ public abstract class Enemy {
     protected int damageDieCount;
     protected int damageDieSides;
     protected int damageModifier;
+    protected ArrayList<Ability> abilities = new ArrayList<Ability>();
+
+    public Enemy() {
+
+    }
 
     protected Enemy(String name, String healthDie, int hpModifier,
                     int strength, int dexterity, int wisdom,
