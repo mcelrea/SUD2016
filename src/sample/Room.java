@@ -46,14 +46,18 @@ public class Room {
                             Item ringOfStrength = new Item("Ring of Strength",
                                     "A small gold ring glitters on the floor beneath you.",
                                     "C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\ring.png");
-                            ringOfStrength.setStrength(1);
                             ringOfStrength.setRow(row);
                             ringOfStrength.setCol(col);
                             ringOfStrength.setSymbol("O");
-                            ringOfStrength.setXp(10);
-                            ringOfStrength.setAbility(new Ability("Smash and Dash", "You smash and dash"));
-                            ringOfStrength.getAbility().setMinDamage(1);
-                            ringOfStrength.getAbility().setMaxDamage(3);
+                            ringOfStrength.setAbility(new Ability("Swipe",
+                                                                  10,
+                                                                  "1d6",
+                                                                  Ability.DEXTERITY,
+                                                                  0,
+                                                                  12,
+                                                                  0));
+                            //ringOfStrength.getAbility().setMinDamage(1);
+                            //ringOfStrength.getAbility().setMaxDamage(3);
                             addItem(ringOfStrength);
                         }
                         else if(nextLine.substring(i,i+1).equals("S")) {

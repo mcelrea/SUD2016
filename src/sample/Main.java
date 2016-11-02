@@ -96,8 +96,8 @@ public class Main extends Application {
                     gc.setFill(Color.BROWN);
                     gc.fillRect(0, 0, 800, 600);
 
-                    drawFightText(gc);
                     player.drawAbilities(gc);
+                    drawFightText(gc);
 
                     if(turn == PLAYERTURN) {
                         processFightInput();
@@ -115,8 +115,8 @@ public class Main extends Application {
                         Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
                         currentRoom.removeEnemy(currentEnemy); //remove enemy from game
                         currentEnemy = null; //there is no longer a current enemy
-                        combatText1 = "";
                     }
+
                 }
                 else if(gameState == INTRO) {
                     drawIntro(gc);
@@ -205,6 +205,8 @@ public class Main extends Application {
     }
 
     public static void addCombatText(String text) {
+        System.out.println("Got new text: " + text);
+
         //push all text down one
         combatText5 = combatText4;
         combatText4 = combatText3;

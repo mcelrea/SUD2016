@@ -93,7 +93,18 @@ public class Player {
 
         if(a != null) {
             //create a random number between minDamage and maxDamage
-            int damage = (int) (a.getMinDamage() + Math.random() * a.getMaxDamage());
+            //int damage = (int) (a.getMinDamage() + Math.random() * a.getMaxDamage());
+            int damage = Dice.rollDice(a.getNumOfDie(), a.getDieSides());
+            if(a.getModifierType() == Ability.STRENGTH) {
+                damage += strengthModifier;
+            }
+            else if(a.getModifierType() == Ability.DEXTERITY) {
+                damage += dexterityModifier;
+            }
+            else {
+                damage += wisdomModifier;
+            }
+
             enemy.setHp(enemy.getHp() - damage);
             Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.");
             Main.turn = Main.ENEMYTURN;

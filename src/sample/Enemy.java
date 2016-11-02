@@ -16,6 +16,40 @@ public abstract class Enemy {
     protected Color color = Color.BLACK;
     protected Image forwardImage;
     protected int xp;
+    protected int healthDieCount;
+    protected int healthDieSides;
+    protected int hpModifier;
+    protected int strength;
+    protected int strengthModifer;
+    protected int dexterity;
+    protected int dexterityModifier;
+    protected int wisdom;
+    protected int wisdomModifier;
+    protected int damageDieCount;
+    protected int damageDieSides;
+    protected int damageModifier;
+
+    protected Enemy(String name, String healthDie, int hpModifier,
+                    int strength, int dexterity, int wisdom,
+                    String damage, int damageModifier) {
+        this.name = name;
+        this.hpModifier = hpModifier;
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.wisdom = wisdom;
+        this.damageModifier = damageModifier;
+
+        //create random health
+        int dLoc = damage.indexOf("d");
+        healthDieCount = Integer.parseInt(damage.substring(0,dLoc));
+        healthDieSides = Integer.parseInt(damage.substring(dLoc+1));
+        hp = Dice.rollDice(healthDieCount,healthDieSides) + hpModifier;
+
+        //create damage die
+        dLoc = damage.indexOf("d");
+        damageDieCount = Integer.parseInt(damage.substring(0,dLoc));
+        damageDieSides = Integer.parseInt(damage.substring(dLoc+1));
+    }
 
     public Enemy(int hp, String name, String symbol) {
         this.hp = hp;
@@ -88,4 +122,100 @@ public abstract class Enemy {
 
     public abstract void act(World world, Player player);
     public abstract void attack(Player player);
+
+    public int getHealthDieCount() {
+        return healthDieCount;
+    }
+
+    public void setHealthDieCount(int healthDieCount) {
+        this.healthDieCount = healthDieCount;
+    }
+
+    public int getHealthDieSides() {
+        return healthDieSides;
+    }
+
+    public void setHealthDieSides(int healthDieSides) {
+        this.healthDieSides = healthDieSides;
+    }
+
+    public int getHpModifier() {
+        return hpModifier;
+    }
+
+    public void setHpModifier(int hpModifier) {
+        this.hpModifier = hpModifier;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getStrengthModifer() {
+        return strengthModifer;
+    }
+
+    public void setStrengthModifer(int strengthModifer) {
+        this.strengthModifer = strengthModifer;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getDexterityModifier() {
+        return dexterityModifier;
+    }
+
+    public void setDexterityModifier(int dexterityModifier) {
+        this.dexterityModifier = dexterityModifier;
+    }
+
+    public int getWisdom() {
+        return wisdom;
+    }
+
+    public void setWisdom(int wisdom) {
+        this.wisdom = wisdom;
+    }
+
+    public int getWisdomModifier() {
+        return wisdomModifier;
+    }
+
+    public void setWisdomModifier(int wisdomModifier) {
+        this.wisdomModifier = wisdomModifier;
+    }
+
+    public int getDamageDieCount() {
+        return damageDieCount;
+    }
+
+    public void setDamageDieCount(int damageDieCount) {
+        this.damageDieCount = damageDieCount;
+    }
+
+    public int getDamageDieSides() {
+        return damageDieSides;
+    }
+
+    public void setDamageDieSides(int damageDieSides) {
+        this.damageDieSides = damageDieSides;
+    }
+
+    public int getDamageModifier() {
+        return damageModifier;
+    }
+
+    public void setDamageModifier(int damageModifier) {
+        this.damageModifier = damageModifier;
+    }
 }
