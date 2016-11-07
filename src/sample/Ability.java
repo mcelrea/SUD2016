@@ -3,7 +3,7 @@ package sample;
 public class Ability {
     private String name;
     private String description;
-    private double cost;
+    private int cost;
     private int dieSides; //how many sides to the damage die
     private int numOfDie; //how many damage die will be rolled
     public static final int DEXTERITY=1,STRENGTH=2,WISDOM=3;
@@ -47,11 +47,11 @@ public class Ability {
         this.description = description;
     }
 
-    public double getCost() {
+    public int getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 

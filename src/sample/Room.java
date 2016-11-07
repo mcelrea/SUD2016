@@ -18,6 +18,7 @@ public class Room {
     ArrayList<Item> items = new ArrayList<Item>();
     ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     Image wallImageGrey;
+    Store store;
 
     public Room(String path) {
         myRoom = new int[20][20];
@@ -121,6 +122,12 @@ public class Room {
         for(int i=0; i < enemies.size(); i++) {
             enemies.get(i).draw(gc);
         }
+
+        //draw the store
+        if(store != null) {
+            gc.setFill(Color.DARKOLIVEGREEN);
+            gc.fillText("$",Main.OFFSET+store.col*20,Main.OFFSET+store.row*20);
+        }
     }
 
     public void pickUpItem(Player player) {
@@ -150,6 +157,14 @@ public class Room {
         return myRoom[row][col];
     }
 
+    public Store getStore(Player p) {
+        if(store != null) {
+            if(p.getRow() == store.row && p.getCol() == store.col) {
+                return store; //return the store, the player is standing on it
+            }
+        }
+        return null;//there is no store
+    }
 
     public void addItem(Item item) {
         items.add(item);

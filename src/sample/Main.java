@@ -25,16 +25,21 @@ public class Main extends Application {
     ArrayList<String> input = new ArrayList<String>();
     World world = new World();
     public static final int OFFSET = 40;
-    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4, INTRO=5, GAMEOVER=6;
+    public static final int MAP=1, FIGHT=2, PLAYERTURN=3, ENEMYTURN=4, INTRO=5, GAMEOVER=6, STORE=7;
     public static int gameState = INTRO;
     int introPage = 1;
     public static int turn = PLAYERTURN;
     Enemy currentEnemy = null;
     public static String combatText1 = "COMBAT TEXT";
+    static Color combatText1Color = Color.WHITE;
     public static String combatText2 = "COMBAT TEXT";
+    static Color combatText2Color = Color.WHITE;
     public static String combatText3 = "COMBAT TEXT";
+    static Color combatText3Color = Color.WHITE;
     public static String combatText4 = "COMBAT TEXT";
+    static Color combatText4Color = Color.WHITE;
     public static String combatText5 = "COMBAT TEXT";
+    static Color combatText5Color = Color.WHITE;
     Image titleImage;
     Image gameOverImage;
 
@@ -86,17 +91,26 @@ public class Main extends Application {
                     player.draw(gc);
 
                     //draw the combat text
-                    gc.setFill(Color.BLACK);
+                    gc.setFill(combatText1Color);
                     gc.fillText(combatText1,10,450);
+                    gc.setFill(combatText2Color);
                     gc.fillText(combatText2,10,475);
+                    gc.setFill(combatText3Color);
                     gc.fillText(combatText3,10,500);
+                    gc.setFill(combatText4Color);
                     gc.fillText(combatText4,10,525);
+                    gc.setFill(combatText5Color);
                     gc.fillText(combatText5,10,550);
 
                     //check for enemy collision
                     if(currentRoom.getEnemyCollision(player) != null) {
                         currentEnemy = currentRoom.getEnemyCollision(player);
                         gameState = FIGHT;
+                    }
+
+                    //check for store collision
+                    if(currentRoom.getStore(player) != null) {
+                        gameState = STORE;
                     }
                 }
                 else if(gameState == FIGHT) {
@@ -148,11 +162,65 @@ public class Main extends Application {
                     gc.drawImage(gameOverImage,0,0);
                     processGameOverInput();
                 }
+                else if(gameState == STORE) {
+                    Room currentRoom = world.getRoom(player.getWorldRow(),player.getWorldCol());
+                    currentRoom.store.draw(gc);
+                    processStoreInput();
+
+                    //draw the combat text
+                    gc.setFill(combatText1Color);
+                    gc.fillText(combatText1,10,450);
+                    gc.setFill(combatText2Color);
+                    gc.fillText(combatText2,10,475);
+                    gc.setFill(combatText3Color);
+                    gc.fillText(combatText3,10,500);
+                    gc.setFill(combatText4Color);
+                    gc.fillText(combatText4,10,525);
+                    gc.setFill(combatText5Color);
+                    gc.fillText(combatText5,10,550);
+                }
             }
         }.start();
 
         //last line
         primaryStage.show();
+    }
+
+    private void processStoreInput() {
+        //go through the entire list of input
+        for(int i=0; i < input.size(); i++) {
+            if (input.get(i).equals("SPACE")) {
+                player.setRow(player.getRow()+1);
+                gameState = MAP;
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT1")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,1);
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT2")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,2);
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT3")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,3);
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT4")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,4);
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT5")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,5);
+                input.remove(i);
+                i--;
+            }
+        }
     }
 
     private void processGameOverInput() {
@@ -204,25 +272,34 @@ public class Main extends Application {
         gc.fillRect(500,120,100*(currentEnemy.getHp()/(double)currentEnemy.getMaxHp()),20);
 
         //draw the combat text
-        gc.setFill(Color.GOLD);
-        gc.fillText(combatText1,10,400);
-        gc.fillText(combatText2,10,425);
-        gc.fillText(combatText3,10,450);
-        gc.fillText(combatText4,10,475);
-        gc.fillText(combatText5,10,500);
+        gc.setFill(combatText1Color);
+        gc.fillText(combatText1,10,450);
+        gc.setFill(combatText2Color);
+        gc.fillText(combatText2,10,475);
+        gc.setFill(combatText3Color);
+        gc.fillText(combatText3,10,500);
+        gc.setFill(combatText4Color);
+        gc.fillText(combatText4,10,525);
+        gc.setFill(combatText5Color);
+        gc.fillText(combatText5,10,550);
     }
 
-    public static void addCombatText(String text) {
+    public static void addCombatText(String text, Color color) {
         System.out.println("Got new text: " + text);
 
         //push all text down one
         combatText5 = combatText4;
+        combatText5Color = combatText4Color;
         combatText4 = combatText3;
+        combatText4Color = combatText3Color;
         combatText3 = combatText2;
+        combatText3Color = combatText2Color;
         combatText2 = combatText1;
+        combatText2Color = combatText1Color;
 
         //add new text
         combatText1 = text;
+        combatText1Color = color;
     }
 
 

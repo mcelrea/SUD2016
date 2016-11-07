@@ -88,6 +88,17 @@ public class Skeleton extends Enemy{
         }
 
         int damage = Dice.rollDice(a.getNumOfDie(),a.getDieSides());
+        int critMissChance = Dice.rollDie(20);
+        //if a 20 is rolled it's a critical hit
+        if(critMissChance == 20) {
+            damage *= 2;//double the damage
+            Main.addCombatText("Skeleton critically hits!!!!!!!", Color.RED);
+        }
+        //if a 1 is rolled a Skelton critically misses
+        else if(critMissChance == 1) {
+            Main.addCombatText(getName() + " attempted to use [" + a.getName() + "], but critically missed.", Color.RED);
+            return; //exit
+        }
         damage += damageModifier;
         if(a.getModifierType() == Ability.STRENGTH) {
             damage += strengthModifer;
@@ -99,8 +110,13 @@ public class Skeleton extends Enemy{
             damage += wisdomModifier;
         }
 
-        player.setHp(player.getHp() - damage);
-        Main.addCombatText(getName() + " used [" + a.getName() +" ] for " + damage + " damage.");
+        if(damage > 0) {
+            player.setHp(player.getHp() - damage);
+            Main.addCombatText(getName() + " used [" + a.getName() + " ] for " + damage + " damage.", Color.RED);
+        }
+        else {
+            Main.addCombatText(getName() + " attempted to use [" + a.getName() + "], but missed.", Color.RED);
+        }
         Main.turn = Main.PLAYERTURN;
         lastAct = System.currentTimeMillis();
     }

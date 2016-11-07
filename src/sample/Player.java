@@ -95,6 +95,18 @@ public class Player {
             //create a random number between minDamage and maxDamage
             //int damage = (int) (a.getMinDamage() + Math.random() * a.getMaxDamage());
             int damage = Dice.rollDice(a.getNumOfDie(), a.getDieSides());
+
+            int critMissChance = Dice.rollDie(20);
+            //if a 20 is rolled
+            if(critMissChance == 20) {
+                damage *= 2;//double the damage
+                Main.addCombatText("Player critically hits!!!!", Color.BLUEVIOLET);
+            }
+            else if (critMissChance == 1) {
+                Main.addCombatText("You use [" + a.getName() + "] but critically miss!", Color.BLUEVIOLET);
+                return;
+            }
+
             if(a.getModifierType() == Ability.STRENGTH) {
                 damage += strengthModifier;
             }
@@ -106,7 +118,7 @@ public class Player {
             }
 
             enemy.setHp(enemy.getHp() - damage);
-            Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.");
+            Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.", Color.BLUEVIOLET);
             Main.turn = Main.ENEMYTURN;
         }
     }
