@@ -91,6 +91,10 @@ public class Main extends Application {
                     player.draw(gc);
 
                     //draw the combat text
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(8,425,780,170);
+                    gc.setStroke(Color.WHITE);
+                    gc.strokeRect(8,425,780,170);
                     gc.setFill(combatText1Color);
                     gc.fillText(combatText1,10,450);
                     gc.setFill(combatText2Color);
@@ -164,10 +168,14 @@ public class Main extends Application {
                 }
                 else if(gameState == STORE) {
                     Room currentRoom = world.getRoom(player.getWorldRow(),player.getWorldCol());
-                    currentRoom.store.draw(gc);
+                    currentRoom.store.draw(gc, player);
                     processStoreInput();
 
                     //draw the combat text
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(8,425,780,170);
+                    gc.setStroke(Color.WHITE);
+                    gc.strokeRect(8,425,780,170);
                     gc.setFill(combatText1Color);
                     gc.fillText(combatText1,10,450);
                     gc.setFill(combatText2Color);
@@ -272,6 +280,10 @@ public class Main extends Application {
         gc.fillRect(500,120,100*(currentEnemy.getHp()/(double)currentEnemy.getMaxHp()),20);
 
         //draw the combat text
+        gc.setFill(Color.BLACK);
+        gc.fillRect(8,425,780,170);
+        gc.setStroke(Color.WHITE);
+        gc.strokeRect(8,425,780,170);
         gc.setFill(combatText1Color);
         gc.fillText(combatText1,10,450);
         gc.setFill(combatText2Color);

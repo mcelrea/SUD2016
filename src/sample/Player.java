@@ -100,10 +100,10 @@ public class Player {
             //if a 20 is rolled
             if(critMissChance == 20) {
                 damage *= 2;//double the damage
-                Main.addCombatText("Player critically hits!!!!", Color.BLUEVIOLET);
+                Main.addCombatText("Player critically hits!!!!", Color.WHITE);
             }
             else if (critMissChance == 1) {
-                Main.addCombatText("You use [" + a.getName() + "] but critically miss!", Color.BLUEVIOLET);
+                Main.addCombatText("You use [" + a.getName() + "] but critically miss!", Color.WHITE);
                 return;
             }
 
@@ -118,7 +118,7 @@ public class Player {
             }
 
             enemy.setHp(enemy.getHp() - damage);
-            Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.", Color.BLUEVIOLET);
+            Main.addCombatText("You use [" + a.getName() + "] to cause " + damage + " damage.", Color.WHITE);
             Main.turn = Main.ENEMYTURN;
         }
     }
