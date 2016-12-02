@@ -129,6 +129,7 @@ public abstract class Enemy {
 
     public abstract void act(World world, Player player);
     public abstract void attack(Player player);
+    public abstract int getDroppedGold(Player player);
 
     public int getHealthDieCount() {
         return healthDieCount;

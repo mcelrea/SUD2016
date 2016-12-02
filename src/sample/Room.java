@@ -67,6 +67,12 @@ public class Room {
                             skel.setCol(col);
                             enemies.add(skel);
                         }
+                        else if(nextLine.substring(i,i+1).equals("Z")) {
+                            Zombie zombie = new Zombie("Zombie",0,-4,-1,-1,0);
+                            zombie.setRow(row);
+                            zombie.setCol(col);
+                            enemies.add(zombie);
+                        }
                         col++;
                     }
                     row++;

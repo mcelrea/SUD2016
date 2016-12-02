@@ -63,6 +63,12 @@ public class Player {
         maxHp = hp;
     }
 
+    public void addHealth(int h) {
+        hp += h;
+        if(hp > maxHp)
+            hp = maxHp;
+    }
+
     public void drawAbilities(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.fillText("Active Abilities", 100,175);
@@ -390,5 +396,65 @@ public class Player {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void levelUp() {
+        int checkLevel=0;
+        for(int i=0; i < xpLevels.length; i++) {
+            if(xp < xpLevels[i])
+                break;
+            else
+                checkLevel = i;
+        }
+
+        //if I leveled up
+        if(checkLevel > level) {
+            level++;
+            constitution++;
+            constitutionModifier = constitution/2;
+            int addHealth = Dice.rollDie(8);
+            maxHp = maxHp + addHealth;
+            hp = maxHp;
+            Main.addCombatText("LEVEL UP", Color.HOTPINK);
+            Main.addCombatText("You gained " + addHealth + " more health", Color.HOTPINK);
+            addToBestStat();
+            addToSecondStat();
+        }
+    }
+
+    public void addToBestStat() {
+        if(strength >= dexterity && strength >= wisdom) {
+            strength += 2;
+            strengthModifier = strength / 2;
+            Main.addCombatText("Gained 2 Strength", Color.HOTPINK);
+        }
+        else if(dexterity >= strength && dexterity >= wisdom) {
+            dexterity += 2;
+            dexterityModifier = dexterity / 2;
+            Main.addCombatText("Gained 2 Dexterity", Color.HOTPINK);
+        }
+        else {
+            wisdom += 2;
+            wisdomModifier = wisdom / 2;
+            Main.addCombatText("Gained 2 Wisdom", Color.HOTPINK);
+        }
+    }
+
+    public void addToSecondStat() {
+        if(strength >= dexterity && strength <= wisdom) {
+            strength += 1;
+            strengthModifier = strength / 2;
+            Main.addCombatText("Gained 1 Strength", Color.HOTPINK);
+        }
+        else if(dexterity >= strength && dexterity <= wisdom) {
+            dexterity += 1;
+            dexterityModifier = dexterity / 2;
+            Main.addCombatText("Gained 1 Dexterity", Color.HOTPINK);
+        }
+        else {
+            wisdom += 1;
+            wisdomModifier = wisdom / 2;
+            Main.addCombatText("Gained 1 Wisdom", Color.HOTPINK);
+        }
     }
 }

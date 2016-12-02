@@ -7,15 +7,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Skeleton extends Enemy{
+public class Zombie extends Enemy{
 
-    public Skeleton(String name, int hpModifier, int strengthModifier,
+    public Zombie(String name, int hpModifier, int strengthModifier,
                     int dexerityModifier, int wisdomModifier, int attackModifier) {
-        actRate = 1000; //1 second
+        actRate = 500; //1/2 second
         lastAct = System.currentTimeMillis();
         color = Color.BLUEVIOLET;
-        xp = 3;
-        File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\skeleton.png");
+        xp = 5;
+        File file = new File("C:\\Users\\mcelrea\\Documents\\Game Programming P6\\Graphical SUD P2\\src\\images\\wall.png");
         try {
             forwardImage = new Image(new FileInputStream(file));
         } catch (FileNotFoundException e) {
@@ -23,30 +23,30 @@ public class Skeleton extends Enemy{
         }
         this.name = name;
         this.hpModifier = hpModifier;
-        hp = Dice.rollDice(3,6) + hpModifier;
+        hp = Dice.rollDice(3,8) + hpModifier;
         maxHp = hp;
-        strength = 3;
+        strength = 8;
         this.strengthModifer = strengthModifier;
-        dexterity = 8;
+        dexterity = 4;
         this.dexterityModifier = dexerityModifier;
-        wisdom = 3;
+        wisdom = 1;
         this.wisdomModifier = wisdomModifier;
         this.damageModifier = attackModifier;
 
-        abilities.add(new Ability("Swipe",
-                                  0,
-                                  "1d4",
-                                  Ability.STRENGTH,
-                                  0,
-                                  0,
-                                  0));
-        abilities.add(new Ability("Putrid Bile",
-                                  0,
-                                  "1d4",
-                                  Ability.WISDOM,
-                                  0,
-                                  0,
-                                  0));
+        abilities.add(new Ability("Kick",
+                0,
+                "2d4",
+                Ability.STRENGTH,
+                0,
+                0,
+                0));
+        abilities.add(new Ability("Head Butt",
+                0,
+                "1d10",
+                Ability.STRENGTH,
+                0,
+                0,
+                0));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Skeleton extends Enemy{
         //if a 20 is rolled it's a critical hit
         if(critMissChance == 20) {
             damage *= 2;//double the damage
-            Main.addCombatText("Skeleton critically hits!!!!!!!", Color.RED);
+            Main.addCombatText("Zombie critically hits!!!!!!!", Color.RED);
         }
         //if a 1 is rolled a Skelton critically misses
         else if(critMissChance == 1) {
@@ -125,9 +125,9 @@ public class Skeleton extends Enemy{
     public int getDroppedGold(Player player) {
         int chance = (int) (1 + Math.random() * 100);
 
-        //50% chance of dropping gold
-        if(chance <= 50) {
-            int gold = (int) (1 + Math.random() * 3);
+        //20% chance of dropping gold
+        if(chance <= 20) {
+            int gold = (int) (4 + Math.random() * 5);
             Main.addCombatText("Skeleton dropped " + gold + " gold", Color.GOLD);
             return gold;
         }

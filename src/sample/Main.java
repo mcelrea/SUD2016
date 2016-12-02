@@ -42,6 +42,7 @@ public class Main extends Application {
     static Color combatText5Color = Color.WHITE;
     Image titleImage;
     Image gameOverImage;
+    int heartChance = 50;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -140,6 +141,18 @@ public class Main extends Application {
                         gameState = MAP;
                         Room currentRoom = world.getRoom(player.getWorldRow(), player.getWorldCol());
                         currentRoom.removeEnemy(currentEnemy); //remove enemy from game
+
+                        int chance = (int) (1 + Math.random() * 100); //1-100
+                        if(chance >= heartChance) {
+                            int hp = (int) ((player.getMaxHp()/3) + Math.random() * (player.getMaxHp()/3));
+                            player.addHealth(hp);
+                            addCombatText("Enemy dropped " + hp + " health!!!!", Color.GREEN);
+                        }
+
+                        player.setXp(player.getXp() + currentEnemy.getXp());
+                        player.levelUp();
+                        player.setGold(player.getGold() + currentEnemy.getDroppedGold(player));
+
                         currentEnemy = null; //there is no longer a current enemy
                     }
 
@@ -225,6 +238,11 @@ public class Main extends Application {
             }
             else if (input.get(i).equals("DIGIT5")) {
                 world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,5);
+                input.remove(i);
+                i--;
+            }
+            else if (input.get(i).equals("DIGIT6")) {
+                world.getRoom(player.getWorldRow(),player.getWorldCol()).store.purchaseAbility(player,6);
                 input.remove(i);
                 i--;
             }
