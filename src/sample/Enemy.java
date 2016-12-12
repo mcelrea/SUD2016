@@ -31,9 +31,12 @@ public abstract class Enemy {
     protected int damageDieSides;
     protected int damageModifier;
     protected ArrayList<Ability> abilities = new ArrayList<Ability>();
+    protected int width;
+    protected int height;
 
     public Enemy() {
-
+        width = 20;
+        height = 20;
     }
 
     protected Enemy(String name, String healthDie, int hpModifier,

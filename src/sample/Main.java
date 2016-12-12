@@ -108,8 +108,8 @@ public class Main extends Application {
                     gc.fillText(combatText5,10,550);
 
                     //check for enemy collision
-                    if(currentRoom.getEnemyCollision(player) != null) {
-                        currentEnemy = currentRoom.getEnemyCollision(player);
+                    if(currentRoom.getEnemyCollisionBySize(player) != null) {
+                        currentEnemy = currentRoom.getEnemyCollisionBySize(player);
                         gameState = FIGHT;
                     }
 

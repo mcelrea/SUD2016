@@ -191,4 +191,20 @@ public class Room {
         }
         return null; //player is not on any enemy
     }
+
+    public Enemy getEnemyCollisionBySize(Player player) {
+        int playerX = Main.OFFSET+player.getCol()*20;
+        int playerY = Main.OFFSET+player.getRow()*20;
+
+        for(int i=0; i < enemies.size(); i++) {
+            int enemyX = Main.OFFSET+enemies.get(i).getCol()*20;
+            int enemyY = Main.OFFSET+enemies.get(i).getRow()*20;
+            if(playerX >= enemyX && playerX < enemyX + enemies.get(i).width &&
+                    playerY >= enemyY && playerY < enemyY + enemies.get(i).height) {
+                return enemies.get(i);
+            }
+        }
+
+        return null;
+    }
 }
